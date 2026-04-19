@@ -38,7 +38,7 @@ export default function Home() {
         <div className={styles.featureCard}>
           <h3>Scan & Sort</h3>
           <p>
-            Forward your email receipts and we'll automatically extract
+            Forward your email receipts and we&apos;ll automatically extract
             transaction details, categorize spending, and organize everything in
             one place.
           </p>

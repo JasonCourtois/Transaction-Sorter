@@ -1,0 +1,62 @@
+[
+  {
+    "merchant": "Whole Foods Market",
+    "category": "Groceries",
+    "amount": 84.37,
+    "summary": "Produce, pantry staples, and cold brew.",
+    "source": "Gmail receipt",
+    "timestamp": "Today, 9:18 AM",
+    "confidence": 98,
+    "status": "Parsed"
+  },
+  {
+    "merchant": "United Airlines",
+    "category": "Travel",
+    "amount": 428.9,
+    "summary": "Round-trip flight confirmation to Austin.",
+    "source": "Booking email",
+    "timestamp": "Today, 7:42 AM",
+    "confidence": 95,
+    "status": "Parsed"
+  },
+  {
+    "merchant": "Figma",
+    "category": "Software",
+    "amount": 15,
+    "summary": "Professional plan monthly renewal.",
+    "source": "Subscription email",
+    "timestamp": "Yesterday",
+    "confidence": 100,
+    "status": "Parsed"
+  },
+  {
+    "merchant": "Amazon",
+    "category": "Shopping",
+    "amount": 63.12,
+    "summary": "Desk lamp and USB-C hub.",
+    "source": "Order receipt",
+    "timestamp": "Yesterday",
+    "confidence": 94,
+    "status": "Parsed"
+  },
+  {
+    "merchant": "DoorDash",
+    "category": "Dining",
+    "amount": 26.48,
+    "summary": "Lunch order with delivery fee and tip.",
+    "source": "Receipt email",
+    "timestamp": "Apr 16",
+    "confidence": 91,
+    "status": "Flagged"
+  },
+  {
+    "merchant": "Spotify",
+    "category": "Entertainment",
+    "amount": 10.99,
+    "summary": "Premium individual subscription renewal.",
+    "source": "Subscription email",
+    "timestamp": "Apr 15",
+    "confidence": 99,
+    "status": "Parsed"
+  }
+]

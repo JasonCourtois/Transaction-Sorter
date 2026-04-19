@@ -2,13 +2,17 @@
 
 import { createContext, useState, useContext } from "react";
 
+type Session = {
+  email: string;
+} | null | undefined;
+
 // This type defines all of the data that is stored in the Auth Context Provider.
 type AuthContextType = {
-  session: any;
+  session: Session;
   signUpNewUser: (
-  ) => Promise<{ success: boolean; data: any }>;
+  ) => Promise<{ success: boolean; data: Session }>;
   signIn: (
-  ) => Promise<{ success: boolean; data: any }>;
+  ) => Promise<{ success: boolean; data: Session }>;
   signOut: () => void;
 };
 
@@ -20,7 +24,7 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [session, setSession] = useState<any>(undefined);
+  const [session, setSession] = useState<Session>(undefined);
 
   // Sign Up Function
   const signUpNewUser = async () => {
