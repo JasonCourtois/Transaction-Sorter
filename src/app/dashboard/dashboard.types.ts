@@ -1,5 +1,3 @@
-export type TransactionStatus = "Parsed" | "Flagged";
-
 export type Transaction = {
   merchant: string;
   category: string;
@@ -8,7 +6,6 @@ export type Transaction = {
   source: string;
   timestamp: string;
   confidence: number;
-  status: TransactionStatus;
 };
 
 export type SpendTrendData = {

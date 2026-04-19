@@ -44,9 +44,7 @@ const categoryTotal = categories.reduce(
 );
 
 const topCategoryShare = Math.round((topCategory.value / categoryTotal) * 100);
-
-const needsReviewCount =
-  inboxSignals.find((signal) => signal.label === "Needs review")?.value ?? "00";
+const parsedEmailCount = transactions.length;
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -68,7 +66,7 @@ export function DashboardShell() {
           <p>
             Mock data preview for your Firebase-backed transaction sorter. The
             dashboard surfaces parsed receipts, category trends, and the
-            purchases worth reviewing first.
+            purchases worth noticing first.
           </p>
         </div>
         <div className="dashboard-shell__actions">
@@ -100,11 +98,9 @@ export function DashboardShell() {
           <p>{topCategoryShare}% of this month&apos;s total mock spend.</p>
         </article>
         <article className="dashboard-shell__kpi-card dashboard-shell__highlight-card">
-          <span className="dashboard-shell__kpi-label">
-            Flagged for review
-          </span>
-          <strong>{needsReviewCount} emails</strong>
-          <p>Low-confidence restaurant charges and split totals.</p>
+          <span className="dashboard-shell__kpi-label">Parsed emails</span>
+          <strong>{parsedEmailCount}</strong>
+          <p>Receipts currently represented in this dashboard preview.</p>
         </article>
       </section>
 

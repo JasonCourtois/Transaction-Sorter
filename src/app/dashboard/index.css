@@ -298,9 +298,7 @@
   margin-top: 12px;
 }
 
-.dashboard-shell__transaction-details span,
-.dashboard-shell__status--parsed,
-.dashboard-shell__status--flagged {
+.dashboard-shell__transaction-details span {
   display: inline-flex;
   align-items: center;
   padding: 6px 10px;
@@ -313,18 +311,6 @@
   color: #bdc1c6;
   background: rgba(47, 50, 54, 0.94);
   border-color: rgba(95, 99, 104, 0.22);
-}
-
-.dashboard-shell__status--parsed {
-  color: #d7f1dc;
-  background: rgba(129, 201, 149, 0.12);
-  border-color: rgba(129, 201, 149, 0.22);
-}
-
-.dashboard-shell__status--flagged {
-  color: #fce8b2;
-  background: rgba(251, 200, 107, 0.12);
-  border-color: rgba(251, 200, 107, 0.2);
 }
 
 .dashboard-shell__transaction-amount,

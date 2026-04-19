@@ -14,15 +14,6 @@ export function ParsedEmailRow({
       <div className="dashboard-shell__transaction-meta">
         <div className="dashboard-shell__transaction-topline">
           <h3>{transaction.merchant}</h3>
-          <span
-            className={
-              transaction.status === "Parsed"
-                ? "dashboard-shell__status--parsed"
-                : "dashboard-shell__status--flagged"
-            }
-          >
-            {transaction.status}
-          </span>
         </div>
         <p>{transaction.summary}</p>
         <div className="dashboard-shell__transaction-details">

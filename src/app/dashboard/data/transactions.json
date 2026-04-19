@@ -6,8 +6,7 @@
     "summary": "Produce, pantry staples, and cold brew.",
     "source": "Gmail receipt",
     "timestamp": "Today, 9:18 AM",
-    "confidence": 98,
-    "status": "Parsed"
+    "confidence": 98
   },
   {
     "merchant": "United Airlines",
@@ -16,8 +15,7 @@
     "summary": "Round-trip flight confirmation to Austin.",
     "source": "Booking email",
     "timestamp": "Today, 7:42 AM",
-    "confidence": 95,
-    "status": "Parsed"
+    "confidence": 95
   },
   {
     "merchant": "Figma",
@@ -26,8 +24,7 @@
     "summary": "Professional plan monthly renewal.",
     "source": "Subscription email",
     "timestamp": "Yesterday",
-    "confidence": 100,
-    "status": "Parsed"
+    "confidence": 100
   },
   {
     "merchant": "Amazon",
@@ -36,8 +33,7 @@
     "summary": "Desk lamp and USB-C hub.",
     "source": "Order receipt",
     "timestamp": "Yesterday",
-    "confidence": 94,
-    "status": "Parsed"
+    "confidence": 94
   },
   {
     "merchant": "DoorDash",
@@ -46,8 +42,7 @@
     "summary": "Lunch order with delivery fee and tip.",
     "source": "Receipt email",
     "timestamp": "Apr 16",
-    "confidence": 91,
-    "status": "Flagged"
+    "confidence": 91
   },
   {
     "merchant": "Spotify",
@@ -56,7 +51,6 @@
     "summary": "Premium individual subscription renewal.",
     "source": "Subscription email",
     "timestamp": "Apr 15",
-    "confidence": 99,
-    "status": "Parsed"
+    "confidence": 99
   }
 ]

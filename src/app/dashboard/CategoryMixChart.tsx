@@ -52,11 +52,7 @@ export function CategoryMixChart({
         emphasis: {
           scale: true,
           label: {
-            show: true,
-            formatter: "{b}\n${c}",
-            color: "#e8eaed",
-            fontSize: 14,
-            fontWeight: 600,
+            show: false,
           },
         },
         data: categories,
