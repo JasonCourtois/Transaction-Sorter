@@ -1,5 +1,5 @@
 import ReactECharts from "echarts-for-react";
-import styles from "./DashboardShell.module.css";
+import styles from "@/app/dashboard/DashboardShell.module.css";
 
 type DailySpendChartProps = {
   labels: string[];

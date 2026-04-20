@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CategoryMixChart } from "./CategoryMixChart";
-import { DailySpendChart } from "./DailySpendChart";
+import { CategoryMixChart } from "../../components/CategoryMixChart";
+import { DailySpendChart } from "../../components/DailySpendChart";
 import categoriesData from "./data/categories.json";
 import inboxSignalsData from "./data/inbox-signals.json";
 import merchantWatchlistData from "./data/merchant-watchlist.json";
@@ -27,33 +27,25 @@ const inboxSignals = inboxSignalsData as InboxSignal[];
 const merchantWatchlist = merchantWatchlistData as MerchantWatchlistItem[];
 const spendTrend = spendTrendData as SpendTrendData;
 
-const spendTotal = transactions.reduce(
-  (total, transaction) => total + transaction.amount,
-  0,
-);
+const spendTotal = transactions.reduce((total, transaction) => total + transaction.amount, 0);
 
 const averageConfidence = Math.round(
-  transactions.reduce(
-    (total, transaction) => total + transaction.confidence,
-    0,
-  ) / transactions.length,
+  transactions.reduce((total, transaction) => total + transaction.confidence, 0) /
+    transactions.length,
 );
 
 const topCategory = categories.reduce((highest, category) =>
   category.value > highest.value ? category : highest,
 );
 
-const categoryTotal = categories.reduce(
-  (total, category) => total + category.value,
-  0,
-);
+const categoryTotal = categories.reduce((total, category) => total + category.value, 0);
 
 const topCategoryShare = Math.round((topCategory.value / categoryTotal) * 100);
 const parsedEmailCount = transactions.length;
 
 const expenseCategoryNames = categories.map((c) => c.name) as readonly string[];
 
-function formatCurrency(value: number) {
+export function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -111,10 +103,7 @@ export function DashboardShell() {
             </div>
             <span className={styles.panelBadge}>12 days</span>
           </div>
-          <DailySpendChart
-            labels={spendTrend.labels}
-            values={spendTrend.values}
-          />
+          <DailySpendChart labels={spendTrend.labels} values={spendTrend.values} />
         </article>
 
         <article className={styles.panel}>
@@ -138,17 +127,13 @@ export function DashboardShell() {
             <span className={styles.panelBadge}>{inboxBadge}</span>
           </div>
 
-          <InboxSearchBar
-            categoryNames={expenseCategoryNames}
-            onSearch={setInboxFilters}
-          />
+          <InboxSearchBar categoryNames={expenseCategoryNames} onSearch={setInboxFilters} />
 
           <div className={styles.transactionList}>
             {filteredTransactions.length === 0 ? (
               <p className={styles.inboxEmpty}>
-                No transactions match these filters. Choose &quot;All
-                categories&quot;, clear the keyword, and search again—or try
-                different terms.
+                No transactions match these filters. Choose &quot;All categories&quot;, clear the
+                keyword, and search again—or try different terms.
               </p>
             ) : (
               filteredTransactions.map((transaction) => (
