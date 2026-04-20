@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Receipts parsed",
+    "value": "142",
+    "detail": "+18 this week"
+  },
+  {
+    "label": "Categories tracked",
+    "value": "06",
+    "detail": "Across travel, groceries, shopping, and more"
+  },
+  {
+    "label": "AI extraction score",
+    "value": "96.8%",
+    "detail": "Across amount, merchant, and summary"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "merchant": "Adobe",
+    "detail": "Annual renewal in 5 days",
+    "amount": "$239.88"
+  },
+  {
+    "merchant": "Notion",
+    "detail": "Usage increased 18% this month",
+    "amount": "$24.00"
+  },
+  {
+    "merchant": "Uber",
+    "detail": "Spend velocity above usual range",
+    "amount": "$86.43"
+  }
+]

@@ -2,87 +2,122 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-height: 100vh;
 }
 
-.hero {
+.navbar {
+  height: var(--toolbar-height);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 6rem 2rem;
-  text-align: center;
-  gap: 2rem;
+  padding: 0 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 
-.hero h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ededed;
-  margin: 0;
+.brand {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: -0.02em;
 }
 
-.hero p {
-  font-size: 1.25rem;
-  color: var(--accent);
-  max-width: 600px;
-  margin: 0;
-}
-
-.featuresSection {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 0 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.featureCard {
-  border-left: 4px solid var(--accent);
-  padding: 1.5rem;
-  background-color: rgba(59, 130, 246, 0.05);
-  border-radius: 4px;
-}
-
-.featureCard h3 {
-  color: var(--accent);
-  font-size: 1.25rem;
-  margin: 0 0 0.5rem 0;
-}
-
-.featureCard p {
-  color: #ededed;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.cta {
-  text-align: center;
-  padding: 2rem;
-  color: #999;
-  font-size: 0.95rem;
+.brand strong {
+  font-weight: 500;
+  color: var(--foreground);
 }
 
 .navButton {
-  padding: 0.5rem 0.6rem 0.5rem 0.6rem;
-  border-radius: 1rem;
-  border: 1px solid hsl(231 8% 30%);
-  transition: all 0.1s ease;
-  background-color: var(--background);
-  color: var(--foreground);
+  height: 36px;
+  padding: 0 24px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--link);
+  font: inherit;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .navButton:hover {
-  border: 1px solid var(--accent);
+  background: #f8f9fa;
+  border-color: #c6c8cc;
 }
 
-.navbar {
-  height: 56px;
+.navButton:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+.hero {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 0 2rem 0 2rem;
-  border-bottom: 1px solid hsl(231 8% 30% );
+  padding: 48px 24px 56px;
+  text-align: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 400;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 16px 0 0;
+  line-height: 1.6;
+}
+
+.featuresSection {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px 40px;
+  display: grid;
+  gap: 0;
+}
+
+.featureCard {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  border-radius: 0;
+  border-left: none;
+}
+
+.featureCard:last-of-type {
+  border-bottom: none;
+}
+
+.featureCard h3 {
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.featureCard p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.cta {
+  text-align: center;
+  padding: 20px 24px 32px;
+  color: var(--muted);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
 }

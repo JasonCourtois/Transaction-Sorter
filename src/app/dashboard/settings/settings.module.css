@@ -1,0 +1,19 @@
+.main {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 24px 24px 48px;
+  color: #202124;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #5f6368;
+  line-height: 1.5;
+}

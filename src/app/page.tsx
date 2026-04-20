@@ -19,50 +19,51 @@ export default function Home() {
   return (
     <main className={styles.mainContainer}>
       <div className={styles.navbar}>
-        <div>logo TBD</div>
+        <div className={styles.brand}>
+          <strong>Transaction</strong> Sorter
+        </div>
         <div>
-          <button className={styles.navButton} onClick={login}>
-            Login
+          <button type="button" className={styles.navButton} onClick={login}>
+            Sign in
           </button>
         </div>
       </div>
       <section className={styles.hero}>
-        <h1>Financial Life Simplified</h1>
+        <h1>Receipts from Gmail, organized</h1>
         <p>
-          Automatically sort and categorize transactions from your email
-          receipts
+          Forward or connect mail; we pull amounts, merchants, and categories
+          into a single list you can scan like your inbox.
         </p>
       </section>
 
       <section className={styles.featuresSection}>
         <div className={styles.featureCard}>
-          <h3>Scan & Sort</h3>
+          <h3>Parsing</h3>
           <p>
-            Forward your email receipts and we'll automatically extract
-            transaction details, categorize spending, and organize everything in
-            one place.
+            Reads receipt mail for totals, dates, and merchants so you do not
+            re-type lines from PDFs or confirmations.
           </p>
         </div>
 
         <div className={styles.featureCard}>
-          <h3>Track Spending Habits</h3>
+          <h3>Categories</h3>
           <p>
-            Get detailed breakdowns of your spending by category. See where your
-            money goes and identify patterns to help you budget better.
+            Buckets each line into categories you can filter and export when you
+            reconcile the month.
           </p>
         </div>
 
         <div className={styles.featureCard}>
-          <h3>Fast & Simple</h3>
+          <h3>Setup</h3>
           <p>
-            No manual data entry. No complex setup. Just forward receipts and
-            watch your spending history build automatically.
+            Sign in with Google, pick a label or forwarding rule, and new mail
+            shows up in the dashboard as it arrives.
           </p>
         </div>
       </section>
 
       <div className={styles.cta}>
-        <p>Start organizing your finances today</p>
+        <p>Transaction Sorter — development preview</p>
       </div>
     </main>
   );
