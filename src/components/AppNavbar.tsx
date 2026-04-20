@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
 import categoriesData from "@/app/dashboard/data/categories.json";
-import { SpendCategory } from "@/app/dashboard/dashboard.types";
+import { SpendBreakdownItem } from "@/app/dashboard/dashboard.types";
 import styles from "./AppNavbar.module.css";
 
 export function AppNavbar() {
@@ -12,7 +12,7 @@ export function AppNavbar() {
   const router = useRouter();
   const { signOut } = UserAuth();
 
-  const categories = categoriesData as SpendCategory[];
+  const categories = categoriesData as SpendBreakdownItem[];
 
   const handleLogout = () => {
     signOut();

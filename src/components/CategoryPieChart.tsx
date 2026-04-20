@@ -1,14 +1,14 @@
 import ReactECharts from "echarts-for-react";
-import type { SpendCategory } from "../app/dashboard/dashboard.types";
+import type { SpendBreakdownItem } from "../app/dashboard/dashboard.types";
 import styles from "@/app/dashboard/DashboardShell.module.css";
 
 type CategoryMixChartProps = {
-  categories: SpendCategory[];
+  segments: SpendBreakdownItem[];
 };
 
 const categoryColors = ["#1a73e8", "#188038", "#9334e6", "#ea8600", "#d93025", "#5f6368"];
 
-export function CategoryMixChart({ categories }: CategoryMixChartProps) {
+export function CategoryPieChart({ segments }: CategoryMixChartProps) {
   const option = {
     backgroundColor: "transparent",
     color: categoryColors,
@@ -50,7 +50,7 @@ export function CategoryMixChart({ categories }: CategoryMixChartProps) {
             show: false,
           },
         },
-        data: categories,
+        data: segments,
       },
     ],
   };

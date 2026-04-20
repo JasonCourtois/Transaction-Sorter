@@ -9,7 +9,7 @@ export type Transaction = {
   amount: number;
   summary: string;
   source: string;
-  timestamp: string;
+  date: string;
   confidence: number;
 };
 
@@ -18,7 +18,7 @@ export type SpendTrendData = {
   values: number[];
 };
 
-export type SpendCategory = {
+export type SpendBreakdownItem = {
   value: number;
   name: string;
 };
