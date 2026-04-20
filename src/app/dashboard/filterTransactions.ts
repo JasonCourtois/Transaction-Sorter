@@ -17,7 +17,7 @@ export function filterTransactions(
       t.merchant,
       t.summary,
       t.source,
-      t.timestamp,
+      t.date,
       t.category,
       String(t.amount),
       String(t.confidence),

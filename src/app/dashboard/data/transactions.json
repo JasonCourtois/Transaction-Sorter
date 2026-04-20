@@ -55,7 +55,7 @@
   },
   {
     "merchant": "Shell",
-    "category": "Transportation",
+    "category": "Travel",
     "amount": 52.14,
     "summary": "Fuel purchase during morning commute.",
     "source": "Card transaction alert",
@@ -64,7 +64,7 @@
   },
   {
     "merchant": "AT&T",
-    "category": "Utilities",
+    "category": "Shopping",
     "amount": 78.33,
     "summary": "Monthly wireless bill payment.",
     "source": "Billing email",
@@ -73,7 +73,7 @@
   },
   {
     "merchant": "CVS Pharmacy",
-    "category": "Health",
+    "category": "Shopping",
     "amount": 23.67,
     "summary": "Prescription pickup and essentials.",
     "source": "Receipt email",
@@ -118,7 +118,7 @@
   },
   {
     "merchant": "Lyft",
-    "category": "Transportation",
+    "category": "Travel",
     "amount": 19.72,
     "summary": "Ride to downtown client meeting.",
     "source": "Ride receipt",
@@ -154,7 +154,7 @@
   },
   {
     "merchant": "Comcast",
-    "category": "Utilities",
+    "category": "Shopping",
     "amount": 64.95,
     "summary": "Monthly internet service payment.",
     "source": "Billing email",
@@ -190,7 +190,7 @@
   },
   {
     "merchant": "Walgreens",
-    "category": "Health",
+    "category": "Shopping",
     "amount": 31.22,
     "summary": "Vitamins and over-the-counter medication.",
     "source": "Receipt email",

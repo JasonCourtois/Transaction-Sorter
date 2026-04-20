@@ -1,19 +1,21 @@
 import ReactECharts from "echarts-for-react";
 import styles from "@/app/dashboard/DashboardShell.module.css";
-
-type DailySpendChartProps = {
-  labels: string[];
-  values: number[];
-};
+import { Transaction } from "@/app/dashboard/dashboard.types";
 
 const lineColor = "#1a73e8";
 const axisMuted = "#5f6368";
 const gridLine = "#e8eaed";
 
-export function DailySpendChart({
-  labels,
-  values,
-}: DailySpendChartProps) {
+export function DailySpendChart({ transactions }: { transactions: Transaction[] }) {
+  const dailySpendByDate = Object.entries(
+    transactions.reduce<Record<string, number>>((totals, transaction) => {
+      totals[transaction.date] = (totals[transaction.date] ?? 0) + transaction.amount;
+      return totals;
+    }, {}),
+  ).sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
+  const labels = dailySpendByDate.map(([date]) => date);
+  const values = dailySpendByDate.map(([, value]) => value);
+
   const option = {
     backgroundColor: "transparent",
     color: [lineColor],
@@ -94,11 +96,5 @@ export function DailySpendChart({
     ],
   };
 
-  return (
-    <ReactECharts
-      className={styles.chart}
-      option={option}
-      opts={{ renderer: "svg" }}
-    />
-  );
+  return <ReactECharts className={styles.chart} option={option} opts={{ renderer: "svg" }} />;
 }
