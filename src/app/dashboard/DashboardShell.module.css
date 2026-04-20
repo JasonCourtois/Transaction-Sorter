@@ -118,6 +118,56 @@
   font-weight: 500;
 }
 
+.inboxActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  gap: 8px;
+  background: var(--dash-surface);
+}
+
+.inboxActionButtonPrimary,
+.inboxActionButtonSecondary {
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.inboxActionButtonPrimary {
+  border: 1px solid #1a73e8;
+  background: #1a73e8;
+  color: #ffffff;
+}
+
+.inboxActionButtonPrimary:hover {
+  background: #1557b0;
+  border-color: #1557b0;
+}
+
+.inboxActionButtonPrimary:focus-visible,
+.inboxActionButtonSecondary:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+.inboxActionButtonSecondary {
+  border: 1px solid var(--dash-border);
+  background: var(--dash-surface);
+  color: var(--dash-text);
+}
+
+.inboxActionButtonSecondary:hover {
+  background: var(--dash-hover);
+  border-color: #c6c8cc;
+}
+
 .inboxSearch {
   padding: 12px 20px;
   border-bottom: 1px solid var(--dash-border);
@@ -433,6 +483,10 @@
   .inboxSearchForm {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .inboxActions {
+    justify-content: flex-start;
   }
 
   .inboxSearchButton {

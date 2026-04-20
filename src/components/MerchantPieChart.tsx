@@ -1,38 +1,32 @@
 import ReactECharts from "echarts-for-react";
 import type { Transaction } from "../app/dashboard/dashboard.types";
 import styles from "@/app/dashboard/DashboardShell.module.css";
-import { useEffect } from "react";
 
-type CategoryPieChartProps = {
+type MerchantPieChartProps = {
   transactions: Transaction[];
-  setTopCategory?: (category: string) => void;
 };
 
 const categoryColors = ["#1a73e8", "#188038", "#9334e6", "#ea8600", "#d93025", "#5f6368"];
 
-export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieChartProps) {
-  const categoryTotals: Record<string, number> = {};
-  for (const transaction of transactions) {
-    categoryTotals[transaction.category] =
-      (categoryTotals[transaction.category] ?? 0) + transaction.amount;
-  }
+export function MerchantPieChart({ transactions }: MerchantPieChartProps) {
+  const MAX_MERCHANT_SEGMENTS = 8;
 
-  const segments = Object.entries(categoryTotals).map(([name, value]) => ({
-    name,
-    value,
-  }));
-  
-  useEffect(() => {
-    if (setTopCategory) {
-      const topCategory = Object.entries(categoryTotals).reduce(
-        (maxCategory, [category, total]) =>
-          total > maxCategory.total ? { category, total } : maxCategory,
-        { category: "", total: Number.NEGATIVE_INFINITY },
-      );
-
-      setTopCategory(topCategory.category);
-    }
-  }, [categoryTotals, setTopCategory]);
+  const merchantBreakdown = Object.entries(
+    transactions.reduce<Record<string, number>>((totals, transaction) => {
+      totals[transaction.merchant] = (totals[transaction.merchant] ?? 0) + transaction.amount;
+      return totals;
+    }, {}),
+  )
+    .map(([name, value]) => ({ name, value }))
+    .sort((a, b) => b.value - a.value);
+  const topMerchantBreakdown = merchantBreakdown.slice(0, MAX_MERCHANT_SEGMENTS);
+  const otherMerchantTotal = merchantBreakdown
+    .slice(MAX_MERCHANT_SEGMENTS)
+    .reduce((total, merchant) => total + merchant.value, 0);
+  const segments =
+    otherMerchantTotal > 0
+      ? [...topMerchantBreakdown, { name: "Other", value: otherMerchantTotal }]
+      : topMerchantBreakdown;
 
   const option = {
     backgroundColor: "transparent",

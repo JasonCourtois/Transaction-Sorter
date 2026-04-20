@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { CategoryPieChart } from "../../components/CategoryPieChart";
+import { useMemo, useState, useEffect } from "react";
+import { CategoryPieChart } from "@/components/CategoryPieChart";
 import { DailySpendChart } from "../../components/DailySpendChart";
 import categoriesData from "./data/categories.json";
 import inboxSignalsData from "./data/inbox-signals.json";
 import merchantWatchlistData from "./data/merchant-watchlist.json";
-import spendTrendData from "./data/spend-trend.json";
 import transactionsData from "./data/transactions.json";
 import styles from "./DashboardShell.module.css";
 import { filterTransactions } from "./filterTransactions";
@@ -16,52 +15,64 @@ import type {
   InboxSignal,
   MerchantWatchlistItem,
   SpendBreakdownItem,
-  SpendTrendData,
   Transaction,
 } from "./dashboard.types";
 import { TransactionList } from "./TransactionList";
 import { formatCurrency } from "./TransactionList";
+import { UserAuth } from "@/context/AuthContext";
 
-const transactions = transactionsData as Transaction[];
 const categories = categoriesData as SpendBreakdownItem[];
 const inboxSignals = inboxSignalsData as InboxSignal[];
 const merchantWatchlist = merchantWatchlistData as MerchantWatchlistItem[];
-const spendTrend = spendTrendData as SpendTrendData;
-
-const spendTotal = transactions.reduce((total, transaction) => total + transaction.amount, 0);
-
-const averageConfidence = Math.round(
-  transactions.reduce((total, transaction) => total + transaction.confidence, 0) /
-    transactions.length,
-);
-
-const topCategory = categories.reduce((highest, category) =>
-  category.value > highest.value ? category : highest,
-);
-
-const categoryTotal = categories.reduce((total, category) => total + category.value, 0);
-
-const topCategoryShare = Math.round((topCategory.value / categoryTotal) * 100);
-const parsedEmailCount = transactions.length;
 
 const expenseCategoryNames = categories.map((c) => c.name) as readonly string[];
 
-
 export function DashboardShell() {
+  // Leaving this here to use with sync/refresh.
+  const { user } = UserAuth();
+
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [spendTotal, setSpendTotal] = useState(0);
+  const [averageConfidence, setAverageConfidence] = useState(0);
+  const [parsedEmailCount, setParsedEmailCount] = useState(0);
+  const [topCategory, setTopCategory] = useState("");
+
   const [inboxFilters, setInboxFilters] = useState<InboxSearchFilters>({
     category: "",
     keyword: "",
   });
 
+  // Load dummy data on site load
+  useEffect(() => {
+    setTransactions(transactionsData as Transaction[]);
+  }, []);
+
+  // Update statistics on site when transactions are updated.
+  useEffect(() => {
+    setSpendTotal(transactions.reduce((total, transaction) => total + transaction.amount, 0));
+
+    setAverageConfidence(
+      Math.round(
+        transactions.reduce((total, transaction) => total + transaction.confidence, 0) /
+          transactions.length,
+      ),
+    );
+
+    setParsedEmailCount(transactions.length);
+  }, [transactions]);
+
+  const handleSync = () => {
+    // use setTransactions to update transactions here
+  };
+
+  const handleRefresh = () => {
+    // use setTransactions to update transactions here
+  };
+
   const filteredTransactions = useMemo(
     () => filterTransactions(transactions, inboxFilters),
-    [inboxFilters],
+    [transactions, inboxFilters],
   );
-
-  const inboxBadge =
-    !inboxFilters.category && !inboxFilters.keyword
-      ? "Sample"
-      : `${filteredTransactions.length} match${filteredTransactions.length === 1 ? "" : "es"}`;
 
   return (
     <main className={styles.shell}>
@@ -78,8 +89,7 @@ export function DashboardShell() {
         </article>
         <article className={styles.kpiCard}>
           <span className={styles.metaLabel}>Top category</span>
-          <strong>{topCategory.name}</strong>
-          <p>{topCategoryShare}% of this month&apos;s total mock spend.</p>
+          <strong>{topCategory}</strong>
         </article>
         <article className={styles.kpiCard}>
           <span className={styles.metaLabel}>Parsed emails</span>
@@ -95,9 +105,8 @@ export function DashboardShell() {
               <span className={styles.metaLabel}>Charts</span>
               <h2>Daily spend</h2>
             </div>
-            <span className={styles.panelBadge}>12 days</span>
           </div>
-          <DailySpendChart labels={spendTrend.labels} values={spendTrend.values} />
+          <DailySpendChart transactions={transactions}/>
         </article>
 
         <article className={styles.panel}>
@@ -107,7 +116,7 @@ export function DashboardShell() {
               <h2>Spend by category</h2>
             </div>
           </div>
-          <CategoryPieChart segments={categories} />
+          <CategoryPieChart transactions={transactions} setTopCategory={setTopCategory} />
         </article>
       </section>
 
@@ -118,12 +127,27 @@ export function DashboardShell() {
               <span className={styles.metaLabel}>Primary</span>
               <h2>Inbox</h2>
             </div>
-            <span className={styles.panelBadge}>{inboxBadge}</span>
+            <div className={styles.inboxActions} aria-label="Inbox actions">
+              <button
+                type="button"
+                className={styles.inboxActionButtonPrimary}
+                onClick={handleSync}
+              >
+                Sync emails
+              </button>
+              <button
+                type="button"
+                className={styles.inboxActionButtonSecondary}
+                onClick={handleRefresh}
+              >
+                Refresh items
+              </button>
+            </div>
           </div>
 
           <InboxSearchBar categoryNames={expenseCategoryNames} onSearch={setInboxFilters} />
 
-          <TransactionList transactions={filteredTransactions}/>
+          <TransactionList transactions={filteredTransactions} />
         </article>
 
         <div className={styles.sideStack}>

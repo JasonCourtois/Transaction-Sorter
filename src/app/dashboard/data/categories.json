@@ -1,26 +1,20 @@
 [
   {
-    "value": 918,
     "name": "Travel"
   },
   {
-    "value": 564,
     "name": "Groceries"
   },
   {
-    "value": 344,
     "name": "Shopping"
   },
   {
-    "value": 187,
     "name": "Dining"
   },
   {
-    "value": 126,
     "name": "Software"
   },
   {
-    "value": 98,
     "name": "Entertainment"
   }
 ]
