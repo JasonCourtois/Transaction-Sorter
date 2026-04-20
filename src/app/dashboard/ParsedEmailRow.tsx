@@ -1,3 +1,4 @@
+import styles from "./DashboardShell.module.css";
 import type { Transaction } from "./dashboard.types";
 
 type ParsedEmailRowProps = {
@@ -10,22 +11,20 @@ export function ParsedEmailRow({
   amountLabel,
 }: ParsedEmailRowProps) {
   return (
-    <div className="dashboard-shell__transaction-row">
-      <div className="dashboard-shell__transaction-meta">
-        <div className="dashboard-shell__transaction-topline">
+    <div className={styles.transactionRow}>
+      <div className={styles.transactionMeta}>
+        <div className={styles.transactionTopline}>
           <h3>{transaction.merchant}</h3>
         </div>
         <p>{transaction.summary}</p>
-        <div className="dashboard-shell__transaction-details">
+        <div className={styles.transactionDetails}>
           <span>{transaction.category}</span>
           <span>{transaction.source}</span>
           <span>{transaction.timestamp}</span>
           <span>{transaction.confidence}% confidence</span>
         </div>
       </div>
-      <strong className="dashboard-shell__transaction-amount">
-        {amountLabel}
-      </strong>
+      <strong className={styles.transactionAmount}>{amountLabel}</strong>
     </div>
   );
 }

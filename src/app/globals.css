@@ -1,7 +1,13 @@
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --accent: #3b82f6;
+  --background: #f6f8fc;
+  --foreground: #202124;
+  --muted: #5f6368;
+  --border: #dadce0;
+  --surface: #ffffff;
+  --link: #1a73e8;
+  --link-hover: #1557b0;
+  --row-hover: #f1f3f4;
+  --toolbar-height: 64px;
 }
 
 html {
@@ -20,7 +26,9 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto), "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -32,6 +40,10 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--link);
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

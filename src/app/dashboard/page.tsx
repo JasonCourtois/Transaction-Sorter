@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { DashboardShell } from "./DashboardShell";
-import "./index.css";
 
 export const metadata: Metadata = {
   title: "Dashboard | Transaction Sorter",

@@ -29,7 +29,7 @@ export const AuthContextProvider = ({
   // Sign Up Function
   const signUpNewUser = async () => {
     if (session) {
-      await signOut(); // If user is already logged into another account, sign them out first.
+      signOut();
     }
     const sessionData = {
       email: "guest@gmail.com",
@@ -40,8 +40,7 @@ export const AuthContextProvider = ({
     return { success: true, data: sessionData };
   };
 
-  // Sign Out Function
-  const signOut = async () => {
+  const signOut = () => {
     setSession(null);
   };
 

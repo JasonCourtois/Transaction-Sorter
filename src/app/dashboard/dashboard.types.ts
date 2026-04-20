@@ -1,3 +1,8 @@
+export type InboxSearchFilters = {
+  category: string;
+  keyword: string;
+};
+
 export type Transaction = {
   merchant: string;
   category: string;

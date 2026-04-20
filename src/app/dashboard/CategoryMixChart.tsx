@@ -1,17 +1,18 @@
 import ReactECharts from "echarts-for-react";
 import type { SpendCategory } from "./dashboard.types";
+import styles from "./DashboardShell.module.css";
 
 type CategoryMixChartProps = {
   categories: SpendCategory[];
 };
 
 const categoryColors = [
-  "#8ab4f8",
-  "#81c995",
-  "#a1c2fa",
-  "#89b3a4",
-  "#c58af9",
-  "#fbc86b",
+  "#1a73e8",
+  "#188038",
+  "#9334e6",
+  "#ea8600",
+  "#d93025",
+  "#5f6368",
 ];
 
 export function CategoryMixChart({
@@ -22,10 +23,12 @@ export function CategoryMixChart({
     color: categoryColors,
     tooltip: {
       trigger: "item",
-      backgroundColor: "rgba(32, 33, 36, 0.96)",
-      borderColor: "rgba(95, 99, 104, 0.4)",
+      backgroundColor: "#ffffff",
+      borderColor: "#dadce0",
+      borderWidth: 1,
       textStyle: {
-        color: "#e8eaed",
+        color: "#202124",
+        fontSize: 12,
       },
       formatter: "{b}: ${c} ({d}%)",
     },
@@ -33,24 +36,25 @@ export function CategoryMixChart({
       bottom: 0,
       icon: "circle",
       textStyle: {
-        color: "#bdc1c6",
+        color: "#5f6368",
+        fontSize: 12,
       },
     },
     series: [
       {
         type: "pie",
-        radius: ["58%", "78%"],
+        radius: ["52%", "72%"],
         center: ["50%", "44%"],
         avoidLabelOverlap: true,
         itemStyle: {
-          borderColor: "#202124",
-          borderWidth: 4,
+          borderColor: "#ffffff",
+          borderWidth: 2,
         },
         label: {
           show: false,
         },
         emphasis: {
-          scale: true,
+          scale: false,
           label: {
             show: false,
           },
@@ -62,7 +66,7 @@ export function CategoryMixChart({
 
   return (
     <ReactECharts
-      className="dashboard-shell__donut-chart"
+      className={styles.donutChart}
       option={option}
       opts={{ renderer: "svg" }}
     />

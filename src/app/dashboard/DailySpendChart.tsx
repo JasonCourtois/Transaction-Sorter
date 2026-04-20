@@ -1,9 +1,14 @@
 import ReactECharts from "echarts-for-react";
+import styles from "./DashboardShell.module.css";
 
 type DailySpendChartProps = {
   labels: string[];
   values: number[];
 };
+
+const lineColor = "#1a73e8";
+const axisMuted = "#5f6368";
+const gridLine = "#e8eaed";
 
 export function DailySpendChart({
   labels,
@@ -11,7 +16,7 @@ export function DailySpendChart({
 }: DailySpendChartProps) {
   const option = {
     backgroundColor: "transparent",
-    color: ["#8ab4f8"],
+    color: [lineColor],
     grid: {
       left: 8,
       right: 8,
@@ -21,10 +26,12 @@ export function DailySpendChart({
     },
     tooltip: {
       trigger: "axis",
-      backgroundColor: "rgba(32, 33, 36, 0.96)",
-      borderColor: "rgba(95, 99, 104, 0.4)",
+      backgroundColor: "#ffffff",
+      borderColor: "#dadce0",
+      borderWidth: 1,
       textStyle: {
-        color: "#e8eaed",
+        color: "#202124",
+        fontSize: 12,
       },
       valueFormatter: (value: number) => `$${value.toFixed(2)}`,
     },
@@ -33,24 +40,24 @@ export function DailySpendChart({
       boundaryGap: false,
       data: labels,
       axisLabel: {
-        color: "#9aa0a6",
+        color: axisMuted,
         fontSize: 11,
       },
       axisLine: {
         lineStyle: {
-          color: "rgba(95, 99, 104, 0.42)",
+          color: gridLine,
         },
       },
     },
     yAxis: {
       type: "value",
       axisLabel: {
-        color: "#9aa0a6",
+        color: axisMuted,
         formatter: (value: number) => `$${value}`,
       },
       splitLine: {
         lineStyle: {
-          color: "rgba(95, 99, 104, 0.18)",
+          color: gridLine,
         },
       },
     },
@@ -58,17 +65,17 @@ export function DailySpendChart({
       {
         data: values,
         type: "line",
-        smooth: true,
+        smooth: false,
         symbol: "circle",
-        symbolSize: 6,
+        symbolSize: 5,
         lineStyle: {
-          width: 3,
-          color: "#8ab4f8",
+          width: 2,
+          color: lineColor,
         },
         itemStyle: {
-          color: "#202124",
-          borderColor: "#8ab4f8",
-          borderWidth: 1.5,
+          color: "#ffffff",
+          borderColor: lineColor,
+          borderWidth: 2,
         },
         areaStyle: {
           color: {
@@ -78,8 +85,8 @@ export function DailySpendChart({
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: "rgba(138, 180, 248, 0.18)" },
-              { offset: 1, color: "rgba(138, 180, 248, 0.01)" },
+              { offset: 0, color: "rgba(26, 115, 232, 0.12)" },
+              { offset: 1, color: "rgba(26, 115, 232, 0.02)" },
             ],
           },
         },
@@ -89,7 +96,7 @@ export function DailySpendChart({
 
   return (
     <ReactECharts
-      className="dashboard-shell__chart"
+      className={styles.chart}
       option={option}
       opts={{ renderer: "svg" }}
     />
