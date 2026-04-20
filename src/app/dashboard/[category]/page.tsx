@@ -16,6 +16,7 @@ export default function Category() {
 
   const categories = categoriesData as SpendBreakdownItem[];
   const category = params.category.toLowerCase();
+  const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
 
   const transactions = (transactionsData as Transaction[]).filter(
     (item) => item.category.toLowerCase() === category,
@@ -51,10 +52,6 @@ export default function Category() {
     return categories.some((item) => item.name.toLowerCase() === category);
   };
 
-  const capitalizeFirstLetter = (text: string) => {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  };
-
   if (!isValidCategory()) {
     notFound();
   }
@@ -66,7 +63,7 @@ export default function Category() {
           <div className={styles.panelHeader}>
             <div>
               <span className={styles.metaLabel}>Charts</span>
-              <h2>Daily spend</h2>
+              <h2>Daily Spend on {capitalizedCategory}</h2>
             </div>
           </div>
           <DailySpendChart labels={dailySpendLabels} values={dailySpendValues} />
@@ -76,7 +73,7 @@ export default function Category() {
           <div className={styles.panelHeader}>
             <div>
               <span className={styles.metaLabel}>Merchants</span>
-              <h2>Spend by merchant</h2>
+              <h2>{capitalizedCategory} Spend by Merchant</h2>
             </div>
           </div>
           <CategoryPieChart segments={merchantChartSegments} />
@@ -86,7 +83,7 @@ export default function Category() {
         <article className={styles.panel}>
           <div className={styles.panelHeader}>
             <div>
-              <h2>{capitalizeFirstLetter(category)} Transactions</h2>
+              <h2>{capitalizedCategory} Transactions</h2>
             </div>
           </div>
 
