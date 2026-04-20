@@ -5,7 +5,7 @@
     "amount": 84.37,
     "summary": "Produce, pantry staples, and cold brew.",
     "source": "Gmail receipt",
-    "timestamp": "Today, 9:18 AM",
+    "date": "2026-04-20",
     "confidence": 98
   },
   {
@@ -14,7 +14,7 @@
     "amount": 428.9,
     "summary": "Round-trip flight confirmation to Austin.",
     "source": "Booking email",
-    "timestamp": "Today, 7:42 AM",
+    "date": "2026-04-20",
     "confidence": 95
   },
   {
@@ -23,7 +23,7 @@
     "amount": 15,
     "summary": "Professional plan monthly renewal.",
     "source": "Subscription email",
-    "timestamp": "Yesterday",
+    "date": "2026-04-19",
     "confidence": 100
   },
   {
@@ -32,7 +32,7 @@
     "amount": 63.12,
     "summary": "Desk lamp and USB-C hub.",
     "source": "Order receipt",
-    "timestamp": "Yesterday",
+    "date": "2026-04-19",
     "confidence": 94
   },
   {
@@ -41,7 +41,7 @@
     "amount": 26.48,
     "summary": "Lunch order with delivery fee and tip.",
     "source": "Receipt email",
-    "timestamp": "Apr 16",
+    "date": "2026-04-16",
     "confidence": 91
   },
   {
@@ -50,7 +50,160 @@
     "amount": 10.99,
     "summary": "Premium individual subscription renewal.",
     "source": "Subscription email",
-    "timestamp": "Apr 15",
+    "date": "2026-04-15",
     "confidence": 99
+  },
+  {
+    "merchant": "Shell",
+    "category": "Transportation",
+    "amount": 52.14,
+    "summary": "Fuel purchase during morning commute.",
+    "source": "Card transaction alert",
+    "date": "2026-04-14",
+    "confidence": 96
+  },
+  {
+    "merchant": "AT&T",
+    "category": "Utilities",
+    "amount": 78.33,
+    "summary": "Monthly wireless bill payment.",
+    "source": "Billing email",
+    "date": "2026-04-13",
+    "confidence": 97
+  },
+  {
+    "merchant": "CVS Pharmacy",
+    "category": "Health",
+    "amount": 23.67,
+    "summary": "Prescription pickup and essentials.",
+    "source": "Receipt email",
+    "date": "2026-04-12",
+    "confidence": 93
+  },
+  {
+    "merchant": "Netflix",
+    "category": "Entertainment",
+    "amount": 18.49,
+    "summary": "Standard plan monthly renewal.",
+    "source": "Subscription email",
+    "date": "2026-04-11",
+    "confidence": 99
+  },
+  {
+    "merchant": "Target",
+    "category": "Shopping",
+    "amount": 41.26,
+    "summary": "Home supplies and cleaning products.",
+    "source": "Order receipt",
+    "date": "2026-04-10",
+    "confidence": 92
+  },
+  {
+    "merchant": "Adobe",
+    "category": "Software",
+    "amount": 21.99,
+    "summary": "Creative Cloud single app subscription.",
+    "source": "Subscription email",
+    "date": "2026-04-09",
+    "confidence": 98
+  },
+  {
+    "merchant": "Trader Joe's",
+    "category": "Groceries",
+    "amount": 57.84,
+    "summary": "Weekly grocery restock with produce and frozen meals.",
+    "source": "Receipt email",
+    "date": "2026-04-08",
+    "confidence": 95
+  },
+  {
+    "merchant": "Lyft",
+    "category": "Transportation",
+    "amount": 19.72,
+    "summary": "Ride to downtown client meeting.",
+    "source": "Ride receipt",
+    "date": "2026-04-08",
+    "confidence": 96
+  },
+  {
+    "merchant": "Dropbox",
+    "category": "Software",
+    "amount": 11.99,
+    "summary": "Plus plan monthly renewal.",
+    "source": "Subscription email",
+    "date": "2026-04-07",
+    "confidence": 99
+  },
+  {
+    "merchant": "Chipotle",
+    "category": "Dining",
+    "amount": 14.63,
+    "summary": "Dinner bowl order with drink.",
+    "source": "Receipt email",
+    "date": "2026-04-07",
+    "confidence": 90
+  },
+  {
+    "merchant": "Apple",
+    "category": "Shopping",
+    "amount": 129.0,
+    "summary": "Wireless keyboard purchase.",
+    "source": "Order confirmation",
+    "date": "2026-04-06",
+    "confidence": 94
+  },
+  {
+    "merchant": "Comcast",
+    "category": "Utilities",
+    "amount": 64.95,
+    "summary": "Monthly internet service payment.",
+    "source": "Billing email",
+    "date": "2026-04-06",
+    "confidence": 97
+  },
+  {
+    "merchant": "REI",
+    "category": "Shopping",
+    "amount": 86.41,
+    "summary": "Trail running shoes and socks.",
+    "source": "Order receipt",
+    "date": "2026-04-05",
+    "confidence": 93
+  },
+  {
+    "merchant": "Delta Air Lines",
+    "category": "Travel",
+    "amount": 312.55,
+    "summary": "One-way ticket for conference return leg.",
+    "source": "Booking email",
+    "date": "2026-04-04",
+    "confidence": 96
+  },
+  {
+    "merchant": "Hulu",
+    "category": "Entertainment",
+    "amount": 17.99,
+    "summary": "No-ads plan monthly renewal.",
+    "source": "Subscription email",
+    "date": "2026-04-03",
+    "confidence": 99
+  },
+  {
+    "merchant": "Walgreens",
+    "category": "Health",
+    "amount": 31.22,
+    "summary": "Vitamins and over-the-counter medication.",
+    "source": "Receipt email",
+    "date": "2026-04-02",
+    "confidence": 92
+  },
+  {
+    "merchant": "OpenAI",
+    "category": "Software",
+    "amount": 20.0,
+    "summary": "Monthly API usage charge.",
+    "source": "Usage invoice",
+    "date": "2026-04-01",
+    "confidence": 97
   }
 ]

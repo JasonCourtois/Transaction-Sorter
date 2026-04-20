@@ -8,12 +8,12 @@ export default function Home() {
   const router = useRouter();
   const { signIn } = UserAuth();
   const login = async () => {
-    const { success, data } = await signIn();
+    const { success, error } = await signIn();
 
     if (success) {
       router.push("/dashboard");
     } else {
-      console.error(`Signin error: ${data}`);
+      console.error(`Signin error: ${error}`);
     }
   };
   return (

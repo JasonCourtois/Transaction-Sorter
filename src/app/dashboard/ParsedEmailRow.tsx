@@ -20,7 +20,7 @@ export function ParsedEmailRow({
         <div className={styles.transactionDetails}>
           <span>{transaction.category}</span>
           <span>{transaction.source}</span>
-          <span>{transaction.timestamp}</span>
+          <span>{transaction.date}</span>
           <span>{transaction.confidence}% confidence</span>
         </div>
       </div>
