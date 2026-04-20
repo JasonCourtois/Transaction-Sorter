@@ -44,7 +44,6 @@ export function DashboardShell() {
 
   // Load dummy data on site load
   useEffect(() => {
-    console.log("lets see")
     setTransactions(transactionsData as Transaction[]);
   }, []);
 
