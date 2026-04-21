@@ -1,6 +1,7 @@
 import ReactECharts from "echarts-for-react";
 import type { Transaction } from "../app/dashboard/dashboard.types";
 import styles from "@/app/dashboard/DashboardShell.module.css";
+import { formatCurrency } from "@/app/dashboard/TransactionList";
 
 type MerchantPieChartProps = {
   transactions: Transaction[];
@@ -40,7 +41,8 @@ export function MerchantPieChart({ transactions }: MerchantPieChartProps) {
         color: "#202124",
         fontSize: 12,
       },
-      formatter: "{b}: ${c} ({d}%)",
+      formatter: (params: { name: string; value: number; percent: number }) =>
+        `${params.name}: ${formatCurrency(params.value)} (${params.percent}%)`,
     },
     legend: {
       bottom: 0,
@@ -53,6 +55,7 @@ export function MerchantPieChart({ transactions }: MerchantPieChartProps) {
     series: [
       {
         type: "pie",
+        cursor: "default",
         radius: ["52%", "72%"],
         center: ["50%", "44%"],
         avoidLabelOverlap: true,

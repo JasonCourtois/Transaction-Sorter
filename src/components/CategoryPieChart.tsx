@@ -1,6 +1,8 @@
 import ReactECharts from "echarts-for-react";
 import type { Transaction } from "../app/dashboard/dashboard.types";
 import styles from "@/app/dashboard/DashboardShell.module.css";
+import { formatCurrency } from "@/app/dashboard/TransactionList";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 type CategoryPieChartProps = {
@@ -11,6 +13,8 @@ type CategoryPieChartProps = {
 const categoryColors = ["#1a73e8", "#188038", "#9334e6", "#ea8600", "#d93025", "#5f6368"];
 
 export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieChartProps) {
+  const router = useRouter();
+  
   const categoryTotals: Record<string, number> = {};
   for (const transaction of transactions) {
     categoryTotals[transaction.category] =
@@ -46,7 +50,8 @@ export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieCh
         color: "#202124",
         fontSize: 12,
       },
-      formatter: "{b}: ${c} ({d}%)",
+      formatter: (params: { name: string; value: number; percent: number }) =>
+        `${params.name}: ${formatCurrency(params.value)} (${params.percent}%)`,
     },
     legend: {
       bottom: 0,
@@ -80,5 +85,13 @@ export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieCh
     ],
   };
 
-  return <ReactECharts className={styles.donutChart} option={option} opts={{ renderer: "svg" }} />;
+  const onEvents = {
+    click: (params: { componentType: string; seriesType: string; name: string; value: number }) => {
+      if (params.componentType === "series" && params.seriesType === "pie") {
+        router.push("/dashboard/" + params.name.toLowerCase());
+      }
+    },
+  };
+
+  return <ReactECharts className={styles.donutChart} option={option} onEvents={onEvents} opts={{ renderer: "svg" }} />;
 }
