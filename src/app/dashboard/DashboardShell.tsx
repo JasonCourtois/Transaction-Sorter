@@ -27,6 +27,8 @@ const merchantWatchlist = merchantWatchlistData as MerchantWatchlistItem[];
 
 const expenseCategoryNames = categories.map((c) => c.name) as readonly string[];
 
+const timePeriodOptions = ["1 Month", "2 Months", "6 Months"]
+
 export function DashboardShell() {
   // Leaving this here to use with sync/refresh.
   const { user } = UserAuth();
@@ -36,6 +38,7 @@ export function DashboardShell() {
   const [averageConfidence, setAverageConfidence] = useState(0);
   const [parsedEmailCount, setParsedEmailCount] = useState(0);
   const [topCategory, setTopCategory] = useState("");
+  const [selectedPeriod, setSelectedPeriod] = useState(timePeriodOptions[0]);
 
   const [inboxFilters, setInboxFilters] = useState<InboxSearchFilters>({
     category: "",
@@ -80,7 +83,7 @@ export function DashboardShell() {
         <article className={styles.kpiCard}>
           <span className={styles.metaLabel}>Detected spend</span>
           <strong>{formatCurrency(spendTotal)}</strong>
-          <p>Across the most recent 6 receipt emails.</p>
+          <p>In the last {selectedPeriod}.</p>
         </article>
         <article className={styles.kpiCard}>
           <span className={styles.metaLabel}>Avg. parse confidence</span>
@@ -104,6 +107,11 @@ export function DashboardShell() {
             <div>
               <span className={styles.metaLabel}>Charts</span>
               <h2>Daily spend</h2>
+              <select onChange={(e) => {console.log("t");setSelectedPeriod(e.target.value);}}>
+                {timePeriodOptions.map((item, index) => (
+                  <option key={index} value={item}>{item}</option>
+                ))}
+              </select>
             </div>
           </div>
           <DailySpendChart transactions={transactions}/>
