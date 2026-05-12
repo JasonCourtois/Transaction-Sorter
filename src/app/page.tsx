@@ -3,6 +3,37 @@
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "@/context/AuthContext";
+import { TransactionList } from "./dashboard/TransactionList";
+
+const demoTransactions = [
+  {
+    merchant: "Google Workspace",
+    category: "Software",
+    amount: 18,
+    summary: "Subscription receipt from Google Workspace.",
+    source: "Gmail",
+    date: "2026-05-10",
+    confidence: 96,
+  },
+  {
+    merchant: "Uber",
+    category: "Travel",
+    amount: 24.16,
+    summary: "Ride receipt captured from an email confirmation.",
+    source: "Gmail",
+    date: "2026-05-09",
+    confidence: 92,
+  },
+  {
+    merchant: "Whole Foods",
+    category: "Groceries",
+    amount: 64.83,
+    summary: "Purchase confirmation sorted into groceries.",
+    source: "Gmail",
+    date: "2026-05-08",
+    confidence: 89,
+  },
+];
 
 export default function Home() {
   const router = useRouter();
@@ -70,46 +101,9 @@ export default function Home() {
                   Clean summaries from incoming receipt mail
                 </p>
               </div>
-              
             </div>
 
-            <div className={styles.previewList}>
-              <div className={styles.previewItem}>
-                <span className={styles.merchantDot} />
-                <div>
-                  <strong>Google Workspace</strong>
-                  <p>Subscriptions • $18.00</p>
-                </div>
-                <span className={styles.categoryTag}>Software</span>
-              </div>
-
-              <div className={styles.previewItem}>
-                <span className={styles.merchantDotAlt} />
-                <div>
-                  <strong>Uber</strong>
-                  <p>Ride receipt • $24.16</p>
-                </div>
-                <span className={styles.categoryTag}>Travel</span>
-              </div>
-
-              <div className={styles.previewItem}>
-                <span className={styles.merchantDotWarm} />
-                <div>
-                  <strong>Whole Foods</strong>
-                  <p>Purchase confirmation • $64.83</p>
-                </div>
-                <span className={styles.categoryTag}>Groceries</span>
-              </div>
-            </div>
-
-            <div className={styles.previewFooter}>
-              <span className={styles.previewFooterLabel}>Categories surfaced</span>
-              <div className={styles.categoryPills}>
-                <span>Software</span>
-                <span>Travel</span>
-                <span>Groceries</span>
-              </div>
-            </div>
+            <TransactionList transactions={demoTransactions} />
           </div>
         </div>
       </section>
@@ -141,7 +135,7 @@ export default function Home() {
       </section>
 
       <div className={styles.cta}>
-        <p>Transaction Sorter - development preview</p>
+        <p>Transaction Sorter - UMB CS 436</p>
       </div>
     </main>
   );
