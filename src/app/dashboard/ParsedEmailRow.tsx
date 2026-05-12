@@ -1,5 +1,6 @@
 import styles from "./DashboardShell.module.css";
 import type { Transaction } from "./dashboard.types";
+import { formatCategory } from "./formatCategory";
 
 type ParsedEmailRowProps = {
   transaction: Transaction;
@@ -18,7 +19,7 @@ export function ParsedEmailRow({
         </div>
         <p>{transaction.summary}</p>
         <div className={styles.transactionDetails}>
-          <span>{transaction.category}</span>
+          <span>{formatCategory(transaction.category)}</span>
           <span>{transaction.source}</span>
           <span>{transaction.date}</span>
           <span>{transaction.confidence}% confidence</span>

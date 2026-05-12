@@ -1,22 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useParams, notFound } from "next/navigation";
 import categoriesData from "../data/categories.json";
-import transactionsData from "../data/transactions.json";
 import type { SpendBreakdownItem, Transaction } from "../dashboard.types";
 import styles from "../DashboardShell.module.css";
 import { MerchantPieChart } from "@/components/MerchantPieChart";
 import { DailySpendChart } from "@/components/DailySpendChart";
 import { TransactionList } from "../TransactionList";
+import { formatCategory } from "../formatCategory";
 
 export default function Category() {
   const params = useParams<{ category: string }>();
 
   const categories = categoriesData as SpendBreakdownItem[];
   const category = params.category.toLowerCase();
-  const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+  const capitalizedCategory = formatCategory(category);
 
-  const transactions = (transactionsData as Transaction[]).filter(
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    try {
+      const cached = sessionStorage.getItem("transactions");
+      if (cached) setAllTransactions(JSON.parse(cached));
+    } catch {}
+  }, []);
+
+  const transactions = allTransactions.filter(
     (item) => item.category.toLowerCase() === category,
   );
 

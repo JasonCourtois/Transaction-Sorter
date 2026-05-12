@@ -1,20 +1,11 @@
 [
-  {
-    "name": "Travel"
-  },
-  {
-    "name": "Groceries"
-  },
-  {
-    "name": "Shopping"
-  },
-  {
-    "name": "Dining"
-  },
-  {
-    "name": "Software"
-  },
-  {
-    "name": "Entertainment"
-  }
+  { "name": "food_dining" },
+  { "name": "shopping" },
+  { "name": "travel_transport" },
+  { "name": "entertainment" },
+  { "name": "bills_utilities" },
+  { "name": "health" },
+  { "name": "subscriptions" },
+  { "name": "education" },
+  { "name": "other" }
 ]

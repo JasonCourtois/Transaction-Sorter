@@ -6,6 +6,7 @@ import { UserAuth } from "@/context/AuthContext";
 import categoriesData from "@/app/dashboard/data/categories.json";
 import { SpendBreakdownItem } from "@/app/dashboard/dashboard.types";
 import styles from "./AppNavbar.module.css";
+import { formatCategory } from "@/app/dashboard/formatCategory";
 
 export function AppNavbar() {
   const pathname = usePathname();
@@ -37,7 +38,7 @@ export function AppNavbar() {
             href={"/dashboard/" + category.name.toLowerCase()}
             className={linkClass("/dashboard/" + category.name.toLowerCase())}
           >
-            {category.name}
+            {formatCategory(category.name)}
           </Link>
         ))}
         <Link href="/dashboard/settings" className={linkClass("/dashboard/settings")}>

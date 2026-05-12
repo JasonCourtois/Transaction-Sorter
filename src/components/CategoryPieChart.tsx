@@ -2,6 +2,7 @@ import ReactECharts from "echarts-for-react";
 import type { Transaction } from "../app/dashboard/dashboard.types";
 import styles from "@/app/dashboard/DashboardShell.module.css";
 import { formatCurrency } from "@/app/dashboard/TransactionList";
+import { formatCategory } from "@/app/dashboard/formatCategory";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -10,7 +11,7 @@ type CategoryPieChartProps = {
   setTopCategory?: (category: string) => void;
 };
 
-const categoryColors = ["#1a73e8", "#188038", "#9334e6", "#ea8600", "#d93025", "#5f6368"];
+const categoryColors = ["#1a73e8", "#188038", "#9334e6", "#ea8600", "#d93025", "#5f6368", "#e8710a", "#0b8043", "#c5221f", "#1967d2"];
 
 export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieChartProps) {
   const router = useRouter();
@@ -22,7 +23,7 @@ export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieCh
   }
 
   const segments = Object.entries(categoryTotals).map(([name, value]) => ({
-    name,
+    name: formatCategory(name),
     value,
   }));
   
@@ -85,10 +86,17 @@ export function CategoryPieChart({ transactions, setTopCategory }: CategoryPieCh
     ],
   };
 
+  // Map display names back to slugs for routing
+  const displayToSlug: Record<string, string> = {};
+  for (const slug of Object.keys(categoryTotals)) {
+    displayToSlug[formatCategory(slug)] = slug;
+  }
+
   const onEvents = {
     click: (params: { componentType: string; seriesType: string; name: string; value: number }) => {
       if (params.componentType === "series" && params.seriesType === "pie") {
-        router.push("/dashboard/" + params.name.toLowerCase());
+        const slug = displayToSlug[params.name] ?? params.name.toLowerCase();
+        router.push("/dashboard/" + slug);
       }
     },
   };
