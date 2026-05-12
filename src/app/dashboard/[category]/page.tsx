@@ -8,17 +8,24 @@ import styles from "../DashboardShell.module.css";
 import { MerchantPieChart } from "@/components/MerchantPieChart";
 import { DailySpendChart } from "@/components/DailySpendChart";
 import { TransactionList } from "../TransactionList";
+import { NoTransactionsPlaceholder } from "@/components/NoTransactionsPlaceholder";
+import { UseTransactionContext } from "@/context/TransactionsContext";
 
 export default function Category() {
   const params = useParams<{ category: string }>();
-
+  const { transactions, setTransactions } = UseTransactionContext();
   const categories = categoriesData as SpendBreakdownItem[];
   const category = params.category.toLowerCase();
-  const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+  const capitalizedCategory =
+    category.charAt(0).toUpperCase() + category.slice(1);
 
-  const transactions = (transactionsData as Transaction[]).filter(
-    (item) => item.category.toLowerCase() === category,
-  );
+  const fetchDummyData = () => {
+    setTransactions(transactionsData as Transaction[]);
+  };
+  const filteredTransactions = () =>
+    (transactionsData as Transaction[]).filter(
+      (item) => item.category.toLowerCase() === category,
+    );
 
   const isValidCategory = () => {
     return categories.some((item) => item.name.toLowerCase() === category);
@@ -26,6 +33,10 @@ export default function Category() {
 
   if (!isValidCategory()) {
     notFound();
+  }
+
+  if (transactions.length === 0) {
+    return <NoTransactionsPlaceholder fetchEmails={fetchDummyData} />;
   }
 
   return (
@@ -38,7 +49,7 @@ export default function Category() {
               <h2>Daily Spend on {capitalizedCategory}</h2>
             </div>
           </div>
-          <DailySpendChart transactions={transactions} />
+          <DailySpendChart transactions={filteredTransactions()} />
         </article>
 
         <article className={styles.panel}>
@@ -48,7 +59,7 @@ export default function Category() {
               <h2>{capitalizedCategory} Spend by Merchant</h2>
             </div>
           </div>
-          <MerchantPieChart transactions={transactions} />
+          <MerchantPieChart transactions={filteredTransactions()} />
         </article>
       </section>
       <section className={`${styles.contain} ${styles.bottom}`}>
@@ -59,7 +70,7 @@ export default function Category() {
             </div>
           </div>
 
-          <TransactionList transactions={transactions} />
+          <TransactionList transactions={filteredTransactions()} />
         </article>
       </section>
     </div>

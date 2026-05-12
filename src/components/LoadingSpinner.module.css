@@ -1,0 +1,16 @@
+.loadingSpinner {
+  border: 5px solid transparent;
+  border-top: 5px solid #4285f4; 
+  border-right: 5px solid #db4437; 
+  border-bottom: 5px solid #f4b400; 
+  border-left: 5px solid #0f9d58;
+
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

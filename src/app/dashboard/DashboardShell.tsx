@@ -16,6 +16,8 @@ import type {
 import { TransactionList } from "./TransactionList";
 import { formatCurrency } from "./TransactionList";
 import { UserAuth } from "@/context/AuthContext";
+import { NoTransactionsPlaceholder } from "@/components/NoTransactionsPlaceholder";
+import { UseTransactionContext } from "@/context/TransactionsContext";
 
 const categories = categoriesData as SpendBreakdownItem[];
 
@@ -27,7 +29,7 @@ export function DashboardShell() {
   // Leaving this here to use with sync/refresh.
   const { user } = UserAuth();
 
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const { transactions, setTransactions } = UseTransactionContext();
   const [spendTotal, setSpendTotal] = useState(0);
   const [averageConfidence, setAverageConfidence] = useState(0);
   const [parsedEmailCount, setParsedEmailCount] = useState(0);
@@ -39,10 +41,11 @@ export function DashboardShell() {
     keyword: "",
   });
 
-  // Load dummy data on site load
-  useEffect(() => {
+  // Load dummy data after prompting user.
+  const fetchDummyData = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setTransactions(transactionsData as Transaction[]);
-  }, []);
+  }
 
   // Update statistics on site when transactions are updated.
   useEffect(() => {
@@ -70,6 +73,10 @@ export function DashboardShell() {
     () => filterTransactions(transactions, inboxFilters),
     [transactions, inboxFilters],
   );
+
+  if (transactions.length === 0) {
+    return <NoTransactionsPlaceholder fetchEmails={fetchDummyData}/>
+  }
 
   return (
     <main className={styles.shell}>

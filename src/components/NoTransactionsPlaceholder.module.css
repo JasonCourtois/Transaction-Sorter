@@ -1,0 +1,81 @@
+.placeholderShell {
+  min-height: calc(100vh - var(--toolbar-height));
+  display: grid;
+  place-items: center;
+  padding: 32px 24px 48px;
+  background: var(--background);
+}
+
+.placeholderCard {
+  width: min(560px, 100%);
+  padding: 40px 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(32, 33, 36, 0.08);
+}
+
+.placeholderEyebrow {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.placeholderTitle {
+  margin: 0;
+  color: var(--foreground);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.placeholderBody {
+  margin: 12px auto 0;
+  max-width: 440px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.placeholderButton {
+  height: 40px;
+  margin-top: 24px;
+  padding: 0 20px;
+  border: 1px solid var(--link);
+  border-radius: 4px;
+  background: var(--link);
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.placeholderButton:hover {
+  background: var(--link-hover);
+  border-color: var(--link-hover);
+}
+
+.placeholderButton:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .placeholderShell {
+    padding: 24px 16px 40px;
+  }
+
+  .placeholderCard {
+    padding: 32px 20px;
+  }
+
+  .placeholderButton {
+    width: 100%;
+  }
+}
