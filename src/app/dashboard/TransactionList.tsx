@@ -32,9 +32,9 @@ export function TransactionList({ transactions }: { transactions: Transaction[] 
       ) : (
         transactions
           .slice((page - 1) * MAX_EMAILS_PER_PAGE, page * MAX_EMAILS_PER_PAGE)
-          .map((transaction) => (
+          .map((transaction, index) => (
             <ParsedEmailRow
-              key={`${transaction.merchant}-${transaction.date}`}
+              key={index}
               transaction={transaction}
               amountLabel={formatCurrency(transaction.amount)}
             />

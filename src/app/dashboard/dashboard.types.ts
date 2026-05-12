@@ -13,11 +13,6 @@ export type Transaction = {
   confidence: number;
 };
 
-export type SpendTrendData = {
-  labels: string[];
-  values: number[];
-};
-
 export type SpendBreakdownItem = {
   value: number;
   name: string;
@@ -29,8 +24,3 @@ export type InboxSignal = {
   detail: string;
 };
 
-export type MerchantWatchlistItem = {
-  merchant: string;
-  detail: string;
-  amount: string;
-};

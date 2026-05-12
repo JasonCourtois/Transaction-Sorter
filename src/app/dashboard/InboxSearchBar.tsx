@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import type { InboxSearchFilters } from "./dashboard.types";
 import styles from "./DashboardShell.module.css";
+import { formatCategory } from "./formatCategory";
 
 type InboxSearchBarProps = {
   categoryNames: readonly string[];
@@ -42,7 +43,7 @@ export function InboxSearchBar({
             <option value="">All categories</option>
             {categoryNames.map((name) => (
               <option key={name} value={name}>
-                {name}
+                {formatCategory(name)}
               </option>
             ))}
           </select>
