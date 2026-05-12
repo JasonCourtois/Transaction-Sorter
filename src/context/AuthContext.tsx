@@ -76,6 +76,7 @@ export const AuthContextProvider = ({
     await firebaseSignOut(auth);
     setUser(null);
     setAccessToken(null);
+    sessionStorage.clear();
     document.cookie = "session=; path=/; max-age=0"; // clear cookie on sign out
   };
 

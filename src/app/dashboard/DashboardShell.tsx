@@ -5,15 +5,12 @@ import { CategoryPieChart } from "@/components/CategoryPieChart";
 import { DailySpendChart } from "../../components/DailySpendChart";
 import categoriesData from "./data/categories.json";
 import inboxSignalsData from "./data/inbox-signals.json";
-import merchantWatchlistData from "./data/merchant-watchlist.json";
-import transactionsData from "./data/transactions.json";
 import styles from "./DashboardShell.module.css";
 import { filterTransactions } from "./filterTransactions";
 import { InboxSearchBar } from "./InboxSearchBar";
 import type {
   InboxSearchFilters,
   InboxSignal,
-  MerchantWatchlistItem,
   SpendBreakdownItem,
   Transaction,
 } from "./dashboard.types";
@@ -23,15 +20,15 @@ import { UserAuth } from "@/context/AuthContext";
 
 const categories = categoriesData as SpendBreakdownItem[];
 const inboxSignals = inboxSignalsData as InboxSignal[];
-const merchantWatchlist = merchantWatchlistData as MerchantWatchlistItem[];
 
 const expenseCategoryNames = categories.map((c) => c.name) as readonly string[];
 
 export function DashboardShell() {
   // Leaving this here to use with sync/refresh.
-  const { user } = UserAuth();
+  const { user, accessToken } = UserAuth();
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const [spendTotal, setSpendTotal] = useState(0);
   const [averageConfidence, setAverageConfidence] = useState(0);
   const [parsedEmailCount, setParsedEmailCount] = useState(0);
@@ -42,31 +39,80 @@ export function DashboardShell() {
     keyword: "",
   });
 
-  // Load dummy data on site load
+  // Restore cached transactions from sessionStorage after hydration.
   useEffect(() => {
-    setTransactions(transactionsData as Transaction[]);
+    try {
+      const cached = sessionStorage.getItem("transactions");
+      if (cached) setTransactions(JSON.parse(cached));
+    } catch {}
+    setHydrated(true);
   }, []);
 
-  // Update statistics on site when transactions are updated.
+  // Update statistics and persist transactions to sessionStorage.
+  // Only write after hydration so we don't overwrite the cache with [].
   useEffect(() => {
+    if (hydrated) {
+      sessionStorage.setItem("transactions", JSON.stringify(transactions));
+    }
+
     setSpendTotal(transactions.reduce((total, transaction) => total + transaction.amount, 0));
 
     setAverageConfidence(
-      Math.round(
-        transactions.reduce((total, transaction) => total + transaction.confidence, 0) /
-          transactions.length,
-      ),
+      transactions.length > 0
+        ? Math.round(
+            transactions.reduce((total, transaction) => total + transaction.confidence, 0) /
+            transactions.length,
+          )
+        : 0,
     );
 
     setParsedEmailCount(transactions.length);
   }, [transactions]);
 
-  const handleSync = () => {
-    // use setTransactions to update transactions here
+  const [daysBack, setDaysBack] = useState(30);
+  const [syncing, setSyncing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleSync = async () => {
+    if (!user || !accessToken) return;
+    setSyncing(true);
+    try {
+      const idToken = await user.getIdToken();
+      await fetch("/api/gmail/sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ accessToken, daysBack }),
+      });
+      // After sync, pull the fresh data
+      handleRefresh();
+    } finally {
+      setSyncing(false);
+    }
   };
 
-  const handleRefresh = () => {
-    // use setTransactions to update transactions here
+  const handleRefresh = async () => {
+    if (!user) return;
+    setRefreshing(true);
+    try {
+      const idToken = await user.getIdToken();
+      const res = await fetch(`/api/transactions?days=${daysBack}`, {
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Refresh failed:", res.status, text);
+        return;
+      }
+      const data = await res.json();
+      setTransactions(data.transactions ?? []);
+    } catch (err) {
+      console.error("Refresh error:", err);
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   const filteredTransactions = useMemo(
@@ -106,7 +152,7 @@ export function DashboardShell() {
               <h2>Daily spend</h2>
             </div>
           </div>
-          <DailySpendChart transactions={transactions}/>
+          <DailySpendChart transactions={transactions} />
         </article>
 
         <article className={styles.panel}>
@@ -128,19 +174,34 @@ export function DashboardShell() {
               <h2>Inbox</h2>
             </div>
             <div className={styles.inboxActions} aria-label="Inbox actions">
+              <select
+                className={styles.daysSelect}
+                value={daysBack}
+                onChange={(e) => setDaysBack(Number(e.target.value))}
+                disabled={syncing || refreshing}
+              >
+                <option value={30}>Last 1 month</option>
+                <option value={60}>Last 2 months</option>
+                <option value={90}>Last 3 months</option>
+                <option value={120}>Last 4 months</option>
+                <option value={150}>Last 5 months</option>
+                <option value={180}>Last 6 months</option>
+              </select>
               <button
                 type="button"
                 className={styles.inboxActionButtonPrimary}
                 onClick={handleSync}
+                disabled={syncing || refreshing}
               >
-                Sync emails
+                {syncing ? "Syncing…" : "Sync emails"}
               </button>
               <button
                 type="button"
                 className={styles.inboxActionButtonSecondary}
                 onClick={handleRefresh}
+                disabled={refreshing}
               >
-                Refresh items
+                {refreshing ? "Refreshing…" : "Refresh items"}
               </button>
             </div>
           </div>
@@ -171,25 +232,7 @@ export function DashboardShell() {
             </div>
           </article>
 
-          <article className={styles.panel}>
-            <div className={styles.panelHeader}>
-              <div>
-                <span className={styles.metaLabel}>Labels</span>
-                <h2>Watchlist</h2>
-              </div>
-            </div>
-            <div className={styles.watchlist}>
-              {merchantWatchlist.map((item) => (
-                <div key={item.merchant} className={styles.watchlistRow}>
-                  <div className={styles.rowBody}>
-                    <h3>{item.merchant}</h3>
-                    <p>{item.detail}</p>
-                  </div>
-                  <span>{item.amount}</span>
-                </div>
-              ))}
-            </div>
-          </article>
+
         </div>
       </section>
     </main>
