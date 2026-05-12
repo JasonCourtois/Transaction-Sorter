@@ -40,9 +40,6 @@ export function AppNavbar() {
             {category.name}
           </Link>
         ))}
-        <Link href="/dashboard/settings" className={linkClass("/dashboard/settings")}>
-          User settings
-        </Link>
       </nav>
       <div className={styles.actions}>
         <button type="button" className={styles.logout} onClick={handleLogout}>
