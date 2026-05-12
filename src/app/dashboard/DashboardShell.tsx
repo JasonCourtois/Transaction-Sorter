@@ -4,16 +4,12 @@ import { useMemo, useState, useEffect } from "react";
 import { CategoryPieChart } from "@/components/CategoryPieChart";
 import { DailySpendChart } from "../../components/DailySpendChart";
 import categoriesData from "./data/categories.json";
-import inboxSignalsData from "./data/inbox-signals.json";
-import merchantWatchlistData from "./data/merchant-watchlist.json";
 import transactionsData from "./data/transactions.json";
 import styles from "./DashboardShell.module.css";
 import { filterTransactions } from "./filterTransactions";
 import { InboxSearchBar } from "./InboxSearchBar";
 import type {
   InboxSearchFilters,
-  InboxSignal,
-  MerchantWatchlistItem,
   SpendBreakdownItem,
   Transaction,
 } from "./dashboard.types";
@@ -22,8 +18,6 @@ import { formatCurrency } from "./TransactionList";
 import { UserAuth } from "@/context/AuthContext";
 
 const categories = categoriesData as SpendBreakdownItem[];
-const inboxSignals = inboxSignalsData as InboxSignal[];
-const merchantWatchlist = merchantWatchlistData as MerchantWatchlistItem[];
 
 const expenseCategoryNames = categories.map((c) => c.name) as readonly string[];
 
@@ -80,7 +74,7 @@ export function DashboardShell() {
         <article className={styles.kpiCard}>
           <span className={styles.metaLabel}>Detected spend</span>
           <strong>{formatCurrency(spendTotal)}</strong>
-          <p>Across the most recent 6 receipt emails.</p>
+          <p>Across the most recent {transactions.length} receipt emails.</p>
         </article>
         <article className={styles.kpiCard}>
           <span className={styles.metaLabel}>Avg. parse confidence</span>
@@ -150,47 +144,6 @@ export function DashboardShell() {
           <TransactionList transactions={filteredTransactions} />
         </article>
 
-        <div className={styles.sideStack}>
-          <article className={styles.panel}>
-            <div className={styles.panelHeader}>
-              <div>
-                <span className={styles.metaLabel}>Status</span>
-                <h2>Pipeline</h2>
-              </div>
-            </div>
-            <div className={styles.signalList}>
-              {inboxSignals.map((signal) => (
-                <div key={signal.label} className={styles.signalRow}>
-                  <div className={styles.rowBody}>
-                    <h3>{signal.label}</h3>
-                    <p>{signal.detail}</p>
-                  </div>
-                  <strong>{signal.value}</strong>
-                </div>
-              ))}
-            </div>
-          </article>
-
-          <article className={styles.panel}>
-            <div className={styles.panelHeader}>
-              <div>
-                <span className={styles.metaLabel}>Labels</span>
-                <h2>Watchlist</h2>
-              </div>
-            </div>
-            <div className={styles.watchlist}>
-              {merchantWatchlist.map((item) => (
-                <div key={item.merchant} className={styles.watchlistRow}>
-                  <div className={styles.rowBody}>
-                    <h3>{item.merchant}</h3>
-                    <p>{item.detail}</p>
-                  </div>
-                  <span>{item.amount}</span>
-                </div>
-              ))}
-            </div>
-          </article>
-        </div>
       </section>
     </main>
   );
