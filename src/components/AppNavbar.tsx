@@ -26,7 +26,10 @@ export function AppNavbar() {
   return (
     <header className={styles.bar}>
       <Link href="/dashboard" className={styles.brand}>
-        <strong>Transaction</strong> Sorter
+        <span className={styles.brandMark} aria-hidden="true">
+          TS
+        </span>
+        <strong>Transaction</strong> Sort
       </Link>
       <nav className={styles.nav} aria-label="Main">
         <Link href="/dashboard" className={linkClass("/dashboard")}>
